@@ -38,13 +38,22 @@ class SignController extends Controller
         );
     }
 
-    function put($id)
+    function put(Request $request, $id)
     {
-        return response()->json(
-            [
-                "message" => "PUT Method Success".$id
-            ]
-        );
+        $Sign = Sign::where('id', $id)->first();
+        if($Sign){
+            $Sign->nama = $request->nama ? $request->nama : $Sign->nama;
+            $Sign->password = $request->password ? $request->pasword : $Sign->password;
+            
+            $Sign->save();
+            return response()->json([
+                "message"=> "PUT Method Success",
+                "data" => $Sign
+            ]);
+        }
+        return response()->json([
+            "message"=> "user dengan id".$id."not found"
+        ], 400);
     }
 
     function delete()

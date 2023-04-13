@@ -9,9 +9,11 @@ class SertifikatController extends Controller
 {
     function get()
     {
+        $Sertifikat = Sertifikat::get();
         return response()->json(
             [
-                "message" => "Success"
+            "message" => "Success",
+            "data" => $Sertifikat
             ]
         );
     }
@@ -52,13 +54,36 @@ class SertifikatController extends Controller
         );
     }
 
-    function put($id)
+    function editSertifikat(Request $request, $id)
     {
-        return response()->json(
-            [
-                "message" => "PUT Method Success".$id
-            ]
-        );
+        $Sertifikat = Sertifikat::where('id', $id)->first();
+        
+        //sertifikat
+        if($request->file('sertifikat') !=null){
+            $file =$request->file('sertifikat');
+            $sertifikat = time().".".$file->getClientOriginalExtension();
+            $path =$request->file('sertifikat')->move(public_path('/files'),$sertifikat);
+            $fileUrl =url('/files/'.$sertifikat);
+        }else{
+            $sertifikat = null;
+        }
+
+        if($Sertifikat){
+            $Sertifikat->nama = $request->nama;
+            $Sertifikat->nim = $request->nim;
+            $Sertifikat->no_hp = $request->no_hp;
+            $Sertifikat->email = $request->email;
+            $Sertifikat->sertifikat = $sertifikat;
+
+            $Sertifikat->save();
+            return response()->json([
+                "message"=> "PUT Method Success",
+                "data" => $Sertifikat
+            ]);
+        }
+        return response()->json([
+            "message"=> "user dengan id".$id."not found"
+        ], 400);
     }
 
     function delete()
