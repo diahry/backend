@@ -38,7 +38,7 @@ Route::post('/registrasi', 'RegistrasiController@post');
 
 Route::post('/updateRegistrasi/{id}', 'RegistrasiController@editRegistrasi');
 
-Route::delete('/registrasi', 'RegistrasiController@delete');
+Route::delete('/registrasi/{$id}', 'RegistrasiController@delete');
 
 Route::get('/pembayarans', 'Info_PembayaranController@get');
 

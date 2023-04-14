@@ -9,6 +9,7 @@ class RegistrasiController extends Controller
 {
     function get()
     {
+        $Registrasi = Registrasi::get();
         return response()->json(
             [
                 "message" => "Success",
@@ -159,30 +160,26 @@ class RegistrasiController extends Controller
 
     function delete(Request $request, $id)
     {
-        $deleteFile = Files::where('file_id',$id)->first();
-        if($deleteFile){
-            if($deleteFile-> ktm != null){
-                if(file_exists(public_path('/files/'.$deleteFile-> ktm))){
-                    $ktm = $deleteFile-> ktm;
+        $Registrasi = Registrasi::where('id',$id)->first();
+        if($Registrasi){
+            if($Registrasi-> ktm != null){
+                if(file_exists(public_path('/files/'.$Registrasi-> ktm))){
+                    $ktm = $Registrasi-> ktm;
                     $file_path = str_replace('\\','/',public_path('/files/'));
-                    $deleteFile = unlink($file_path.$ktm);
+                    $deleteImage = unlink($file_path.$ktm);
                 }
-            $deleteFile->delete();
+            $Registrasi->delete();
             return response()->json([
-                'status'=> 200,
-                'message'=> "Data has been delete",
+                "status"=> 200,
+                "message"=> "Data has been delete" .$id,
             ],200);
             }
         }else{
             return response()->json([
-                'status'=> 404,
-                'message'=> "Not Found",
+                "status"=> 404,
+                "message"=> "Not Found" .$id,
             ],404);
         }
-        // return response()->json(
-        //     [
-        //         "message" => "DELETE Method Success".$id
-        //     ]
-        // );
+         
     }
 }
