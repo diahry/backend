@@ -160,26 +160,11 @@ class RegistrasiController extends Controller
 
     function delete(Request $request, $id)
     {
-        $Registrasi = Registrasi::where('id',$id)->first();
-        if($Registrasi){
-            if($Registrasi-> ktm != null){
-                if(file_exists(public_path('/files/'.$Registrasi-> ktm))){
-                    $ktm = $Registrasi-> ktm;
-                    $file_path = str_replace('\\','/',public_path('/files/'));
-                    $deleteImage = unlink($file_path.$ktm);
-                }
-            $Registrasi->delete();
-            return response()->json([
-                "status"=> 200,
-                "message"=> "Data has been delete" .$id,
-            ],200);
-            }
-        }else{
-            return response()->json([
-                "status"=> 404,
-                "message"=> "Not Found" .$id,
-            ],404);
-        }
+        $registrasi = Registrasi::findOrFail($id);
+        $result = $registrasi->delete();
+        if($result){
+            return ['result'=>'Record has been deleted'];
+        }        
          
     }
 }

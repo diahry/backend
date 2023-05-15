@@ -88,10 +88,10 @@ class SertifikatController extends Controller
 
     function delete()
     {
-        return response()->json(
-            [
-                "message" => "DELETE Method Success".$id
-            ]
-        );
+        $Sertifikat = Sertifikat::findOrFail($id);
+        $result = $Sertifikat->delete();
+        if($result){
+            return ['result'=>'Data has been deleted'];
+        }        
     }
 }

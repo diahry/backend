@@ -38,12 +38,12 @@ class SignController extends Controller
         );
     }
 
-    function put(Request $request, $id)
+    function editSign(Request $request, $id)
     {
         $Sign = Sign::where('id', $id)->first();
         if($Sign){
             $Sign->nama = $request->nama ? $request->nama : $Sign->nama;
-            $Sign->password = $request->password ? $request->pasword : $Sign->password;
+            $Sign->password = $request->password ? $request->password : $Sign->password;
             
             $Sign->save();
             return response()->json([
