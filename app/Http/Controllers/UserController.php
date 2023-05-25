@@ -120,7 +120,7 @@ class UserController extends Controller
             $Users->no_telepon = $request->no_telepon ? $request->no_telepon : $Users->no_telepon;
             $Users->email = $request->email ? $request->email : $Users->email;
             $Users->pembayaran = $pembayaran ? $request->pembayaran : $Users->pembayaran;
-            $Users->print_nilai = $pembayaran ? $request->pembayaran : $Users->pembayaran;
+            $Users->print_nilai = $print_nilai ? $request->print_nilai : $Users->print_nilai;
             $Users->status_pembayaran = $request->status_pembayaran ? $request->status_pembayaran : $Users->status_pembayaran;
             $Users->up_pembayaran = $up_pembayaran ? $request->up_pembayaran : $Users->up_pembayaran;
 
