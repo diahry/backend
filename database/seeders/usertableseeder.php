@@ -12,6 +12,24 @@ class usertableseeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $Datauser = [
+            [
+                'nama' => 'SuperAdmin',
+                'password' => '123456',
+                'role' => 'superAdmin'
+            ],
+            [
+                'nama' => 'Admin',
+                'password' => '123456',
+                'role' => 'admin'
+            ],
+            [
+                'nama' => 'User',
+                'password' => '123456',
+                'role' => 'user'
+            ],
+        ];
+
+        
     }
 }
