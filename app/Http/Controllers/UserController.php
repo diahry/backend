@@ -91,7 +91,7 @@ class UserController extends Controller
             $path =$request->file('print_nilai')->move(public_path('/files'),$print_nilai);
             $fileUrl =url('/files/'.$print_nilai);
         }else{
-            $print_nilai = $Users->print_nilai;
+            $print_nilai = null;
         }
 
         //print pembayaran
@@ -101,7 +101,7 @@ class UserController extends Controller
             $path =$request->file('pembayaran')->move(public_path('/files'),$pembayaran);
             $fileUrl =url('/files/'.$pembayaran);
         }else{
-            $pembayaran = $Users->pembayaran;
+            $pembayaran = null;
         }
 
         //up pembayaran
@@ -115,15 +115,14 @@ class UserController extends Controller
         }
         
         if($Users){
-            // $Users = new Users; 
-            $Users->nama = $request->nama;
-            $Users->nim = $request->nim;
-            $Users->no_telepon = $request->no_telepon;
-            $Users->email = $request->email;
-            $Users->pembayaran = $pembayaran;
-            $Users->print_nilai = $print_nilai;
-            $Users->status_pembayaran = $request->status_pembayaran;
-            $Users->up_pembayaran = $up_pembayaran;
+            $Users->nama = $request->nama ? $request->nama : $Users->nama;
+            $Users->nim = $request->nim ? $request->nama : $Users->nim;
+            $Users->no_telepon = $request->no_telepon ? $request->no_telepon : $Users->no_telepon;
+            $Users->email = $request->email ? $request->email : $Users->email;
+            $Users->pembayaran = $pembayaran ? $request->pembayaran : $Users->pembayaran;
+            $Users->print_nilai = $pembayaran ? $request->pembayaran : $Users->pembayaran;
+            $Users->status_pembayaran = $request->status_pembayaran ? $request->status_pembayaran : $Users->status_pembayaran;
+            $Users->up_pembayaran = $up_pembayaran ? $request->up_pembayaran : $Users->up_pembayaran;
 
             $Users->save();
             return response()->json([
@@ -136,12 +135,12 @@ class UserController extends Controller
         ], 400);
     }
 
-    function delete()
+    function delete(Request $request, $id)
     {
-        return response()->json(
-            [
-                "message" => "DELETE Method Success".$id
-            ]
-        );
+        $Users = Users::findOrFail($id);
+        $result = $Users->delete();
+        if($result){
+            return ['result'=>'Data has been deleted'];
+        }      
     }
 }

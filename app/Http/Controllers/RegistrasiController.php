@@ -165,6 +165,6 @@ class RegistrasiController extends Controller
         if($result){
             return ['result'=>'Record has been deleted'];
         }        
-         
+
     }
 }

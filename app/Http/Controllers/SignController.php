@@ -56,12 +56,12 @@ class SignController extends Controller
         ], 400);
     }
 
-    function delete()
+    function delete(Request $request, $id)
     {
-        return response()->json(
-            [
-                "message" => "DELETE Method Success".$id
-            ]
-        );
+        $Sign = Sign::findOrFail($id);
+        $result = $Sign->delete();
+        if($result){
+            return ['result'=>'Data has been deleted'];
+        }   
     }
 }

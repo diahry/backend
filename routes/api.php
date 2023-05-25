@@ -20,7 +20,7 @@ Route::post('/user', 'UserController@post');
 
 Route::post('/updateprofile/{id}', 'UserController@editprofile');
 
-Route::delete('/user', 'UserController@delete');
+Route::delete('/user/{id}', 'UserController@delete');
 
 Route::get('/pengumumans', 'PengumumanController@get');
 
@@ -46,7 +46,7 @@ Route::post('/pembayaran', 'Info_PembayaranController@post');
 
 Route::post('/updatePembayaran/{id}', 'Info_PembayaranController@editPembayaran');
 
-Route::delete('/pembayaran', 'Info_PembayaranController@delete');
+Route::delete('/pembayaran/{id}', 'Info_PembayaranController@delete');
 
 Route::get('/sertifikats', 'SertifikatController@get');
 
@@ -62,4 +62,4 @@ Route::post('/sign', 'SignController@post');
 
 Route::post('/updateSign/{id}', 'SignController@editSign');
 
-Route::delete('/sign', 'SignController@delete');
+Route::delete('/sign/{id}', 'SignController@delete');

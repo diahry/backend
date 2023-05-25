@@ -80,12 +80,12 @@ class Info_PembayaranController extends Controller
         ], 400);
     }
 
-    function delete()
+    function delete(Request $request, $id)
     {
-        return response()->json(
-            [
-                "message" => "DELETE Method Success".$id
-            ]
-        );
+        $Info_Pembayaran = Info_Pembayaran::findOrFail($id);
+        $result = $Info_Pembayaran->delete();
+        if($result){
+            return ['result'=>'Data has been deleted'];
+        }   
     }
 }

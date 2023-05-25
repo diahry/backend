@@ -86,12 +86,12 @@ class SertifikatController extends Controller
         ], 400);
     }
 
-    function delete()
+    function delete(Request $request, $id)
     {
         $Sertifikat = Sertifikat::findOrFail($id);
         $result = $Sertifikat->delete();
         if($result){
             return ['result'=>'Data has been deleted'];
-        }        
+        }   
     }
 }
