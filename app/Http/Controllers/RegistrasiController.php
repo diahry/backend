@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registrasi;
+use Illuminate\Support\Str;
 
 class RegistrasiController extends Controller
 {
@@ -35,7 +36,7 @@ class RegistrasiController extends Controller
         //ktm
         if($request->file('ktm') !=null){
             $file =$request->file('ktm');
-            $ktm = time().".".$file->getClientOriginalExtension();
+            $ktm = Str::uuid().".".$file->getClientOriginalExtension();
             $path =$request->file('ktm')->move(public_path('/files'),$ktm);
             $fileUrl =url('/files/'.$ktm);
         }else{

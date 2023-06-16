@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sertifikat;
+use Illuminate\Support\Str;
 
 class SertifikatController extends Controller
 {
@@ -31,7 +32,7 @@ class SertifikatController extends Controller
         //sertifikat
         if($request->file('sertifikat') !=null){
             $file =$request->file('sertifikat');
-            $sertifikat = time().".".$file->getClientOriginalExtension();
+            $sertifikat = Str::uuid().".".$file->getClientOriginalExtension();
             $path =$request->file('sertifikat')->move(public_path('/files'),$sertifikat);
             $fileUrl =url('/files/'.$sertifikat);
         }else{
@@ -48,10 +49,11 @@ class SertifikatController extends Controller
         $Sertifikat->save();
         return response()->json(
             [
+                "status" => 200,
                 "message" => "Success",
                 "data" => $Sertifikat
             ]
-        );
+        ,200);
     }
 
     function editSertifikat(Request $request, $id)

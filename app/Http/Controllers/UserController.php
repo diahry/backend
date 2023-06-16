@@ -22,7 +22,7 @@ class UserController extends Controller
     function post(Request $request)
     {
         $request->validate([
-            'nama'=> 'required',
+            'nama'=> 'required | max:20',
             'nim'=> 'required',
             'no_telepon'=> 'required',
             'email'=>'required',
@@ -132,15 +132,16 @@ class UserController extends Controller
         }
         return response()->json([
             "message"=> "user dengan id".$id."not found"
-        ], 400);
+        ], 404);
     }
 
     function delete(Request $request, $id)
     {
+        dd($id);
         $Users = Users::findOrFail($id);
         $result = $Users->delete();
         if($result){
             return ['result'=>'Data has been deleted'];
-        }      
+        } 
     }
 }
